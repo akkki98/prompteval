@@ -20,4 +20,4 @@ jobs:
         run: npm install -g promptfoo
 
       - name: Run Promptfoo Evaluation
-        run: promptfoo eval --max-failures 20
+        run: promptfoo eval
