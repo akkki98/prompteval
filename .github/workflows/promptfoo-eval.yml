@@ -3,21 +3,27 @@ name: Promptfoo Evaluation Gate
 on:
   pull_request:
 
+permissions:
+  contents: read
+  models: read
+
 jobs:
   evaluate:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install Promptfoo
         run: npm install -g promptfoo
 
       - name: Run Promptfoo Evaluation
-        run: promptfoo eval --max-failures 20
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: promptfoo eval
